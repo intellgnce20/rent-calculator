@@ -1,12 +1,6 @@
 <<<<<<< HEAD
-# 收租計算機 (Google Sheets 雲端版)
-=======
-# Rent Calculator Web App / 包租婆收租計算機
-
-*[Read in English](#english) | [閱讀中文版本](#chinese)*
-
+# Rent Calculator Web App / 收租計算機
 ---
-
 <a name="english"></a>
 # Rent Calculator (Google Sheets Cloud-based)
 
@@ -126,8 +120,7 @@ function doPost(e) {
 ---
 
 <a name="chinese"></a>
-# 包租婆收租計算機 (Google Sheets 雲端版)
->>>>>>> fe9e1df (docs: 翻譯 README 為中英雙語版本)
+# 收租計算機 (Google Sheets 雲端版)
 
 這個專案使用 React + Tailwind CSS 開發，並採用 Google Sheets 當作免費、穩定且可永久保存的資料庫。透過 Google Apps Script 提供的 API 來讀取與寫入資料。
 
