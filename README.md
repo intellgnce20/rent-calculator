@@ -123,13 +123,12 @@ function doPost(e) {
 這個專案使用 React + Tailwind CSS 開發，並採用 Google Sheets 當作免費、穩定且可永久保存的資料庫。透過 Google Apps Script 提供的 API 來讀取與寫入資料。
 
 ## 為什麼要用 Google Sheets？
-<<<<<<< HEAD
+
 因為原本資料存在手機瀏覽器的 LocalStorage，如果媽媽清除了瀏覽器快取、或是換了一支新手機，原本設定好的「固定租金、上期度數」都會全部消失。
 改用 Google Sheets 後，不管是換手機、還是其他家人同時登入查看，資料都會同步且永遠都在。
 =======
 因為原本資料存在手機瀏覽器的 LocalStorage，如果清除瀏覽器快取、或是換了一支新手機，原本設定好的「固定租金、上期度數」都會全部消失。
 改用 Google Sheets 後，不管是換手機、還是與其他家人同時登入查看，資料都會同步且永遠都在。
->>>>>>> fe9e1df (docs: 翻譯 README 為中英雙語版本)
 
 ---
 
@@ -221,11 +220,11 @@ function doPost(e) {
 
 ---
 
-<<<<<<< HEAD
+
 ## 步驟二：部署網站到 Vercel (可以直接用網址開啟)
 =======
 ## 步驟二：部署網站到 Vercel (讓手機可以直接開啟)
->>>>>>> fe9e1df (docs: 翻譯 README 為中英雙語版本)
+
 
 不需要買 Server，使用 **Vercel** 就能簡單免費上線：
 
@@ -240,7 +239,7 @@ function doPost(e) {
 
 ## 步驟三：安裝到手機桌面
 
-<<<<<<< HEAD
+
 1. 將 Vercel 產生的網址用 **LINE** 傳給媽媽。
 2. 請在手機上點開連結 (建議點擊右上角「**使用預設瀏覽器開啟**」，例如 iPhone 用 Safari，Android 用 Chrome)。
 3. 在瀏覽器底下的分享選單（或右上角的選單）找到「**加入主畫面**」。
@@ -250,4 +249,4 @@ function doPost(e) {
 2. 點開網頁 (建議使用 Safari 或是 Chrome 瀏覽器)。
 3. 在瀏覽器底下的分享選單（或右上角的選單）找到「**加入主畫面**」。
 4. 這樣這個 Web App 就會像一個真正的 App 一樣出現在手機桌面上，點開就能直接用！
->>>>>>> fe9e1df (docs: 翻譯 README 為中英雙語版本)
+
