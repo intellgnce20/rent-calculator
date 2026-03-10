@@ -35,13 +35,18 @@ function App() {
       });
   }, []);
 
-  const saveToCloud = (newRooms) => {
+  const saveToCloud = (newRooms, logData = null) => {
     setRooms(newRooms);
     showToast('雲端同步中...');
     
+    const payload = {
+      rooms: newRooms,
+      log: logData
+    };
+
     fetch(SCRIPT_URL, {
       method: 'POST',
-      body: JSON.stringify(newRooms),
+      body: JSON.stringify(payload),
       headers: { 'Content-Type': 'text/plain' } 
     }).then(() => {
       showToast('雲端儲存成功！');
@@ -150,14 +155,24 @@ function App() {
 
   const handleNextMonth = () => {
     if (window.confirm('確定要結算並進入下個月嗎？\n（本期度數將變成下期上個月度數，本期度數將清空）')) {
+      const room = rooms[activeRoomId];
+      const currentNum = Number(currentMeter);
+      
+      const logData = {
+        roomId: activeRoomId,
+        prevMeter: room.prevMeter,
+        currentMeter: currentNum,
+        timestamp: new Date().toLocaleString('zh-TW')
+      };
+
       const newRooms = {
         ...rooms,
         [activeRoomId]: {
-          ...rooms[activeRoomId],
-          prevMeter: Number(currentMeter)
+          ...room,
+          prevMeter: currentNum
         }
       };
-      saveToCloud(newRooms);
+      saveToCloud(newRooms, logData);
       setCurrentMeter('');
       setShowResult(false);
       showToast('已成功結算，進入下個月！');

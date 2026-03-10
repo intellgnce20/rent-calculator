@@ -16,10 +16,11 @@
 4. 預設會開啟一個 `程式碼.gs` 的檔案，請**刪除裡面所有的程式碼**，貼上以下這段：
 
 ```javascript
-const SHEET_NAME = 'Rooms'; 
+const SHEET_ROOMS = 'Rooms'; 
+const SHEET_HISTORY = 'History'; 
 
 function doGet(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_ROOMS);
   const data = sheet.getDataRange().getValues();
   
   // 第一行為標題欄: [房號, 月租金, 每度電費, 上期電表度數]
@@ -43,19 +44,39 @@ function doGet(e) {
 }
 
 function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-  // 解析前端傳過來的文字轉回 JSON 物件
-  const data = JSON.parse(e.postData.contents);
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const roomsSheet = ss.getSheetByName(SHEET_ROOMS);
+  let historySheet = ss.getSheetByName(SHEET_HISTORY);
   
-  // 每次寫入都清空整張表，並重新寫入標題與最新資料
-  sheet.clear();
-  sheet.appendRow(['房號', '月租金', '每度電費', '上期電表度數']);
+  // 如果沒有歷史紀錄的表，自動建立一個
+  if (!historySheet) {
+    historySheet = ss.insertSheet(SHEET_HISTORY);
+    historySheet.appendRow(['時間', '房號', '上期度數', '本期度數']);
+  }
   
-  // 將每一間房的資料寫入
-  Object.keys(data).forEach(roomId => {
-    const room = data[roomId];
-    sheet.appendRow([roomId, room.rent, room.pricePerUnit, room.prevMeter]);
+  let parsedContent;
+  try {
+    parsedContent = JSON.parse(e.postData.contents);
+  } catch(err) {
+    // 為了相容原本的寫法
+    parsedContent = { rooms: JSON.parse(e.postData.contents) }; 
+  }
+
+  // 1. 寫入最新的房間狀態
+  const roomsData = parsedContent.rooms || parsedContent;
+  roomsSheet.clear();
+  roomsSheet.appendRow(['房號', '月租金', '每度電費', '上期電表度數']);
+  
+  Object.keys(roomsData).forEach(roomId => {
+    const room = roomsData[roomId];
+    roomsSheet.appendRow([roomId, room.rent, room.pricePerUnit, room.prevMeter]);
   });
+  
+  // 2. 如果收到結算紀錄 (log)，就把紀錄寫入 History 工作表
+  if (parsedContent.log) {
+    const log = parsedContent.log;
+    historySheet.appendRow([log.timestamp, log.roomId, log.prevMeter, log.currentMeter]);
+  }
   
   return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
     .setMimeType(ContentService.MimeType.JSON);
