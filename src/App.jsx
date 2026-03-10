@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Settings, Copy, Share2, CheckCircle2, ChevronRight, Calculator } from 'lucide-react';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8oXdP0_Qyo8eN3KZqtecib97Wp3tMm14Vr31ugqcCIBh9WCmxPwthH6MSblxZtM8wSA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDeLfTZxg5ennrPr1bGVpKcZZHmu2g-Cs06aiBtKhmTgs8g8qpTOWbhHEW6WkTip3YSw/exec';
 function App() {
   const [rooms, setRooms] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ function App() {
   const saveToCloud = (newRooms, logData = null) => {
     setRooms(newRooms);
     showToast('雲端同步中...');
-    
+
     const payload = {
       rooms: newRooms,
       log: logData
@@ -47,7 +47,7 @@ function App() {
     fetch(SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify(payload),
-      headers: { 'Content-Type': 'text/plain' } 
+      headers: { 'Content-Type': 'text/plain' }
     }).then(() => {
       showToast('雲端儲存成功！');
     }).catch(() => {
@@ -157,7 +157,7 @@ function App() {
     if (window.confirm('確定要結算並進入下個月嗎？\n（本期度數將變成下期上個月度數，本期度數將清空）')) {
       const room = rooms[activeRoomId];
       const currentNum = Number(currentMeter);
-      
+
       const logData = {
         roomId: activeRoomId,
         prevMeter: room.prevMeter,
@@ -219,8 +219,8 @@ function App() {
                   setCurrentMeter('');
                 }}
                 className={`flex-none snap-start whitespace-nowrap px-6 py-4 rounded-2xl font-bold text-xl transition-all shadow-sm ${activeRoomId === roomId
-                    ? 'bg-rentSecondary text-white scale-105'
-                    : 'bg-white text-gray-600 border border-gray-100 hover:bg-gray-50'
+                  ? 'bg-rentSecondary text-white scale-105'
+                  : 'bg-white text-gray-600 border border-gray-100 hover:bg-gray-50'
                   }`}
               >
                 {roomId}
