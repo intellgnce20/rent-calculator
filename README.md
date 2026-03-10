@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# Rent Calculator Web App / 收租計算機
----
+
 <a name="english"></a>
 # Rent Calculator (Google Sheets Cloud-based)
 
