@@ -1,4 +1,4 @@
-# 包租婆收租計算機 (Google Sheets 雲端版)
+# 收租計算機 (Google Sheets 雲端版)
 
 這個專案使用 React + Tailwind CSS 開發，並採用 Google Sheets 當作免費、穩定且可永久保存的資料庫。透過 Google Apps Script 提供的 API 來讀取與寫入資料。
 
